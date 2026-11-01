@@ -1,0 +1,43 @@
+
+package com.projectpulse.backend.controller;
+
+import com.projectpulse.backend.dto.RegisterRequest;
+import com.projectpulse.backend.dto.UserResponse;
+import com.projectpulse.backend.entity.User;
+import com.projectpulse.backend.service.UserService;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping("/api/auth")
+public class AuthController {
+
+    private final UserService userService;
+
+    public AuthController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<UserResponse> register(
+            @RequestBody RegisterRequest request) {
+
+        User user = userService.createUser(
+                request.getName(),
+                request.getEmail(),
+                request.getPassword()
+        );
+
+        UserResponse response = new UserResponse(
+                user.getUserId(),
+                user.getName(),
+                user.getEmail()
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(response);
+    }
+}
