@@ -1,0 +1,45 @@
+
+name: Maven Build
+description: Set up Java 21, build the Spring Boot application and upload the JAR
+
+inputs:
+  java-version:
+    description: Java version to use
+    required: false
+    default: '21'
+
+  admin-initial-password:
+    description: Initial admin password for integration tests
+    required: true
+
+  jwt-secret:
+    description: JWT signing secret for integration tests
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Set up Java
+      uses: actions/setup-java@v4
+      with:
+        distribution: temurin
+        java-version: ${{ inputs.java-version }}
+        cache: maven
+        cache-dependency-path: backend/pom.xml
+
+    - name: Build and test with Maven
+      shell: bash
+      working-directory: backend
+      env:
+        ADMIN_INITIAL_PASSWORD: ${{ inputs.admin-initial-password }}
+        JWT_SECRET: ${{ inputs.jwt-secret }}
+      run: |
+        chmod +x mvnw
+        ./mvnw --batch-mode clean verify
+
+    - name: Upload Spring Boot JAR
+      uses: actions/upload-artifact@v4
+      with:
+        name: projectpulse-backend-jar
+        path: backend/target/projectpulse-backend-1.0.0.jar
+        if-no-files-found: error

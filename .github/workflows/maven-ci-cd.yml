@@ -1,0 +1,31 @@
+name: ProjectPulse Maven CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Build and Test Spring Boot Application
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build using Composite Action
+        uses: ./.github/actions/maven-build
+        with:
+          java-version: '21'
+          admin-initial-password: ${{ secrets.ADMIN_INITIAL_PASSWORD }}
+          jwt-secret: ${{ secrets.JWT_SECRET }}
