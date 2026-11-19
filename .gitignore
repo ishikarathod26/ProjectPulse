@@ -1,0 +1,63 @@
+# OS and IDE files
+.DS_Store
+Thumbs.db
+.idea/
+*.iml
+.vscode/
+*.suo
+*.user
+
+# Build artifacts
+**/target/
+**/build/
+**/dist/
+**/*.class
+**/*.jar
+**/*.war
+
+# Node & Frontend
+**/node_modules/
+**/.npm
+**/.vite
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Logs & temp
+logs/
+*.log
+scratch/
+temp/
+tmp/
+*.tmp
+
+# Environment and sensitive data
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+*.pfx
+
+# Local Desktop Agent runtime data
+desktop-agent/agent_queue.db
+desktop-agent/agent_cache/
+desktop-agent/logs/
+
+# Hyperledger Fabric runtime artifacts (if generated locally)
+blockchain-network/organizations/peerOrganizations/
+blockchain-network/organizations/ordererOrganizations/
+blockchain-network/channel-artifacts/
+
+# Private Desktop Agent configuration
+**/projectpulse-agent.properties
+
+# Additional sensitive files
+.env.*
+!.env.example
+*.secret
+
+
+# Local Maven installation
+scripts/tools/apache-maven-*/
+

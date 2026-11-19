@@ -1,0 +1,41 @@
+server:
+  port: ${PORT:8080}
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: projectpulse-backend
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+
+# Security & JWT – values pulled from env vars (placeholders safe for dev)
+projectpulse:
+  jwt:
+    secret: ${JWT_SECRET}
+    expiration-ms: ${JWT_EXPIRATION_MS:86400000}
+    refresh-expiration-ms: ${JWT_REFRESH_EXPIRATION_MS:604800000}
+  admin:
+    initial-email: ${ADMIN_INITIAL_EMAIL:admin@projectpulse.io}
+    initial-password: ${ADMIN_INITIAL_PASSWORD}
+    initial-name: ${ADMIN_INITIAL_NAME:System Administrator}
+  blockchain:
+    enabled: ${FABRIC_ENABLED:false}
+    channel-name: ${FABRIC_CHANNEL_NAME:projectpulse-channel}
+    chaincode-name: ${FABRIC_CHAINCODE_NAME:activitytracker}
+    network-config-path: ${FABRIC_NETWORK_CONFIG_PATH:blockchain-network/connection-org1.json}
+    msp-id: ${FABRIC_MSP_ID:Org1MSP}
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+    enabled: true
+
+logging:
+  level:
+    root: INFO
+    io.projectpulse: DEBUG
+    org.springframework.security: INFO
