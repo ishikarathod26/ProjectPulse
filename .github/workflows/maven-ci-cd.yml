@@ -30,7 +30,7 @@ jobs:
         uses: ./.github/actions/maven-build
         with:
           java-version: '21'
-          admin-initial-password: ${{ secrets.ADMIN_INITIAL_PASSWORD }}
+          admin-initial-password: 'TestOnlyPassword123!'
           jwt-secret: ${{ secrets.JWT_SECRET }}
 
   deploy:
